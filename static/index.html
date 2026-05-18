@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataSage — Intelligent Data Science Engine | ABB</title>
+  <meta name="description" content="DataSage AI: Automated ML workflow engine with model arena, drift detection, and AI-powered explanations — built for industrial-grade data science." />
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" fill="#FF000F"/>
+          <rect x="4" y="4" width="28" height="28" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
+          <text x="18" y="24" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="15" fill="#ffffff" letter-spacing="1">DS</text>
+        </svg>
+      </div>
+      <span class="brand-name">DataSage</span>
+    </div>
+    <div class="nav-actions">
+      <div class="expertise-selector">
+        <label class="selector-label">Level</label>
+        <div class="expertise-pills">
+          <button class="pill" id="pill-beginner" onclick="setExpertise('beginner')">Beginner</button>
+          <button class="pill active" id="pill-intermediate" onclick="setExpertise('intermediate')">Intermediate</button>
+          <button class="pill" id="pill-expert" onclick="setExpertise('expert')">Expert</button>
+        </div>
+      </div>
+      <a href="/api/health" target="_blank" class="nav-health" title="API Health">
+        <span class="health-dot" id="health-dot"></span>
+        <span class="health-label">Live</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero-section">
+    <div class="hero-bg">
+      <img src="/static/images/hero-bg.png" alt="Industrial data center" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-accent"></div>
+      <p class="hero-label">Intelligent Data Science · ABB Innovation</p>
+      <h1 class="hero-title">
+        Automated ML<br/>
+        <span class="hero-title-muted">Workflow Engine</span>
+      </h1>
+      <p class="hero-subtitle">
+        Upload any dataset. DataSage detects the task, benchmarks all models
+        in a live arena, detects data drift, and explains results with AI.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num">18+</span><span class="hero-stat-label">Models</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="hero-stat-num">4</span><span class="hero-stat-label">Task Types</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="hero-stat-num">AI</span><span class="hero-stat-label">Explanations</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="hero-stat-num">∞</span><span class="hero-stat-label">Drift Monitor</span></div>
+      </div>
+      <button class="hero-cta" onclick="document.getElementById('upload-section').scrollIntoView({behavior:'smooth'})">
+        Analyze Your Data
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES STRIP -->
+  <div class="capabilities">
+    <div class="cap-card">
+      <div class="cap-card-icon">▶</div>
+      <div class="cap-card-title">Regression</div>
+      <div class="cap-card-desc">Predict continuous values with cross-validation and feature importance.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-icon">◎</div>
+      <div class="cap-card-title">Classification</div>
+      <div class="cap-card-desc">Categorize data with precision, recall, and F1 scoring.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-icon">●</div>
+      <div class="cap-card-title">Clustering</div>
+      <div class="cap-card-desc">Discover segments with silhouette scoring and PCA visualization.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-icon">∿</div>
+      <div class="cap-card-title">Time Series</div>
+      <div class="cap-card-desc">Forecast with ARIMA, Holt-Winters, and ML lag features.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-icon">⚡</div>
+      <div class="cap-card-title">Model Arena</div>
+      <div class="cap-card-desc">Auto-benchmark ALL models. Ranked leaderboard + radar comparison.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-card-icon">⚠</div>
+      <div class="cap-card-title">Drift Detection</div>
+      <div class="cap-card-desc">KS-test + PSI monitoring to flag distribution shifts in production.</div>
+    </div>
+  </div>
+
+  <!-- UPLOAD SECTION -->
+  <section class="upload-section" id="upload-section">
+    <div class="upload-image">
+      <img src="/static/images/data-viz.png" alt="Data visualization" />
+      <div class="upload-image-overlay">
+        <div class="upload-image-badges">
+          <div class="img-badge">CSV</div>
+          <div class="img-badge">Excel</div>
+          <div class="img-badge">JSON</div>
+        </div>
+      </div>
+    </div>
+    <div class="upload-content">
+      <h2 class="upload-heading">Upload Your Dataset</h2>
+      <p class="upload-sub">DataSage will auto-detect the task and run a full ML pipeline</p>
+      <div class="upload-zone" id="upload-zone">
+        <div class="upload-icon">↑</div>
+        <p class="upload-primary">Drop your dataset here</p>
+        <p class="upload-secondary">CSV, Excel, or JSON &mdash; Up to 50 MB</p>
+        <input type="file" id="file-input" accept=".csv,.xlsx,.xls,.json" hidden />
+        <button class="btn-upload" onclick="document.getElementById('file-input').click()">Choose File</button>
+      </div>
+      <div class="demo-datasets">
+        <p class="demo-label">Try a demo dataset</p>
+        <div class="demo-pills">
+          <button class="demo-pill" onclick="loadDemo('abb_motor_predictive_maintenance.csv')">⭐ ABB Motor Data</button>
+          <button class="demo-pill" onclick="loadDemo('house_prices.csv')">House Prices</button>
+          <button class="demo-pill" onclick="loadDemo('customer_churn.csv')">Customer Churn</button>
+          <button class="demo-pill" onclick="loadDemo('customer_segments.csv')">Segments</button>
+          <button class="demo-pill" onclick="loadDemo('monthly_sales.csv')">Sales Forecast</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINE STEPPER -->
+  <section class="pipeline-section hidden" id="pipeline-section">
+    <div class="stepper">
+      <div class="step active" id="step-1"><div class="step-num">1</div><div class="step-label">Data Loaded</div></div>
+      <div class="step-connector"></div>
+      <div class="step" id="step-2"><div class="step-num">2</div><div class="step-label">Task Detected</div></div>
+      <div class="step-connector"></div>
+      <div class="step" id="step-3"><div class="step-num">3</div><div class="step-label">Models Ranked</div></div>
+      <div class="step-connector"></div>
+      <div class="step" id="step-4"><div class="step-num">4</div><div class="step-label">Results Ready</div></div>
+      <div class="step-connector"></div>
+      <div class="step" id="step-5"><div class="step-num">5</div><div class="step-label">Arena</div></div>
+    </div>
+  </section>
+
+  <!-- EDA PANEL -->
+  <section class="panel hidden" id="eda-panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Dataset Overview</h2>
+        <p class="panel-subtitle" id="eda-filename"></p>
+      </div>
+      <div class="panel-header-right">
+        <div class="quality-badge" id="quality-badge">&ndash;</div>
+      </div>
+    </div>
+    <div class="eda-grid" id="eda-grid"></div>
+
+    <!-- Feature Engineering Suggestions -->
+    <div class="fe-section hidden" id="fe-section">
+      <div class="fe-header">
+        <span class="fe-title">🔧 Feature Engineering Suggestions</span>
+        <span class="fe-count" id="fe-count"></span>
+      </div>
+      <div class="fe-suggestions" id="fe-suggestions"></div>
+    </div>
+
+    <div class="target-config" id="target-config">
+      <div class="config-row">
+        <div class="form-group">
+          <label class="form-label">Target Column</label>
+          <select class="form-select" id="target-select"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Problem Description</label>
+          <input class="form-input" id="user-hint" type="text" placeholder="e.g. predict remaining useful life of motor" />
+        </div>
+        <button class="btn-primary" id="detect-btn" onclick="detectTask()">Detect Task →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TASK PANEL -->
+  <section class="panel hidden" id="task-panel">
+    <div class="panel-header"><h2 class="panel-title">Task Intelligence</h2></div>
+    <div class="task-result" id="task-result"></div>
+  </section>
+
+  <!-- MODELS PANEL -->
+  <section class="panel hidden" id="models-panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Model Recommendations</h2>
+        <p class="panel-subtitle">Ranked by suitability for your dataset</p>
+      </div>
+      <button class="btn-arena" id="arena-btn" onclick="runArena()" title="Benchmark ALL models">
+        ⚡ Run Model Arena
+      </button>
+    </div>
+    <div class="models-grid" id="models-grid"></div>
+  </section>
+
+  <!-- RESULTS PANEL -->
+  <section class="panel hidden" id="results-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">Analysis Results</h2>
+      <div class="result-model-badge" id="result-model-badge"></div>
+    </div>
+    <div class="metrics-row" id="metrics-row"></div>
+
+    <!-- Drift Alert -->
+    <div class="drift-alert hidden" id="drift-alert"></div>
+
+    <div class="explanation-card" id="explanation-card">
+      <div class="loading-spinner" id="exp-spinner"></div>
+    </div>
+    <div class="charts-grid" id="charts-grid"></div>
+    <div class="qa-section">
+      <h3 class="qa-title">Ask DataSage AI</h3>
+      <div class="qa-input-row">
+        <input class="qa-input" id="qa-input" type="text" placeholder="Ask about your results — e.g. Why is R² low? What drives churn?" />
+        <button class="btn-primary btn-sm" onclick="askQuestion()">Ask</button>
+      </div>
+      <div class="qa-answer" id="qa-answer"></div>
+    </div>
+  </section>
+
+  <!-- ⭐ ARENA PANEL -->
+  <section class="panel hidden" id="arena-panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">⚡ Model Arena — All Models Benchmarked</h2>
+        <p class="panel-subtitle" id="arena-subtitle">Every model trained, tested, and ranked head-to-head</p>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="arena-leaderboard" id="arena-leaderboard"></div>
+
+    <!-- Arena Charts -->
+    <div class="charts-grid" id="arena-charts-grid"></div>
+
+    <!-- Winner Explanation -->
+    <div class="explanation-card hidden" id="arena-explanation"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <span class="footer-brand">DataSage AI</span>
+        <span class="footer-tagline">Intelligent Data Science Engine</span>
+      </div>
+      <div class="footer-links">
+        <a href="/api/health" target="_blank">API Health</a>
+        <a href="/docs" target="_blank">OpenAPI Docs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay hidden" id="loading-overlay">
+    <div class="loading-card">
+      <div class="spinner-ring"></div>
+      <p class="loading-text" id="loading-text">Analyzing dataset&hellip;</p>
+      <p class="loading-sub" id="loading-sub"></p>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
