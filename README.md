@@ -92,7 +92,7 @@ datasage/
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technologies |
 |---|---|
@@ -105,7 +105,7 @@ datasage/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
