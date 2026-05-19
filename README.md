@@ -30,7 +30,32 @@ An end-to-end automated machine learning platform that ingests any dataset, dete
 
 ---
 
-##  Overview
+## 📸 Screenshots
+
+### Landing Page
+![Landing Page](screenshots/01_landing_page.png)
+
+### Dataset Upload
+![Dataset Upload](screenshots/02_upload_section.png)
+
+### Automated Data Profiling & Feature Engineering Suggestions
+![Data Profiling](screenshots/03_data_profiling.png)
+
+### Task Detection (Hybrid Heuristic + LLM)
+![Task Detection](screenshots/04_task_detection.png)
+
+### Model Recommendations
+![Model Recommendations](screenshots/05_model_recommendations.png)
+
+### Model Arena — Head-to-Head Benchmarking
+![Model Arena](screenshots/06_model_arena.png)
+
+### Results & AI-Powered Explanations
+![Results and Explanations](screenshots/07_results_explanation.png)
+
+---
+
+## 📋 Overview
 
 DataSage AI eliminates the repetitive overhead of exploratory data analysis, model selection, and pipeline configuration. Users upload a dataset (CSV, Excel, or JSON), and the platform automatically:
 
