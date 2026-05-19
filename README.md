@@ -24,13 +24,13 @@ An end-to-end automated machine learning platform that ingests any dataset, dete
 
 ---
 
-## 🔗 Live Deployment
+##  Live Deployment
 
 > **Try it now:** [https://hemanth021-datasage.hf.space](https://hemanth021-datasage.hf.space)
 
 ---
 
-## 📋 Overview
+##  Overview
 
 DataSage AI eliminates the repetitive overhead of exploratory data analysis, model selection, and pipeline configuration. Users upload a dataset (CSV, Excel, or JSON), and the platform automatically:
 
@@ -44,7 +44,7 @@ DataSage AI eliminates the repetitive overhead of exploratory data analysis, mod
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 | Feature | Description |
 |---|---|
@@ -61,7 +61,7 @@ DataSage AI eliminates the repetitive overhead of exploratory data analysis, mod
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 datasage/
@@ -166,7 +166,7 @@ Full interactive API documentation available at `/docs` (Swagger UI).
 
 ---
 
-## 🧪 Supported Models
+##  Supported Models
 
 <details>
 <summary><strong>Regression (6 models)</strong></summary>
@@ -208,7 +208,7 @@ Full interactive API documentation available at `/docs` (Swagger UI).
 
 ---
 
-## 📄 License
+##  License
 
 This project is intended for educational and demonstration purposes.
 
@@ -216,6 +216,6 @@ This project is intended for educational and demonstration purposes.
 
 <div align="center">
 
-**Built with ❤️ for intelligent, automated data science.**
+**Built for intelligent, automated data science.**
 
 </div>
