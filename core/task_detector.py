@@ -9,23 +9,13 @@ import numpy as np
 import pandas as pd
 from typing import Optional
 
-try:
-    import google.generativeai as genai
-    GEMINI_AVAILABLE = True
-except ImportError:
-    GEMINI_AVAILABLE = False
-
+import httpx
 
 class TaskDetector:
     TASK_TYPES = ["regression", "classification", "clustering", "time_series"]
 
     def __init__(self, api_key: str = ""):
         self.api_key = api_key
-        if GEMINI_AVAILABLE and api_key:
-            genai.configure(api_key=api_key)
-            self.model = genai.GenerativeModel("gemini-1.5-flash")
-        else:
-            self.model = None
 
     async def detect(
         self,
@@ -38,7 +28,7 @@ class TaskDetector:
         heuristic = self._heuristic_detect(df, schema, target_column)
         llm_result = None
 
-        if self.model and (user_hint or target_column):
+        if self.api_key and (user_hint or target_column):
             try:
                 llm_result = await self._llm_detect(df, schema, target_column, user_hint, expertise)
             except Exception:
@@ -129,30 +119,48 @@ class TaskDetector:
         )
         sample_rows = df.head(3).to_dict(orient="records")
 
-        prompt = f"""You are a senior data scientist. Analyze the dataset metadata and determine the ML task type.
-
-Dataset columns:
+        system_prompt = "You are a senior data scientist. Analyze the dataset metadata and determine the ML task type. Respond ONLY with valid JSON."
+        prompt = f"""Dataset columns:
 {col_summary}
 
 Target column: {target_column or "None specified"}
 User's problem description: {user_hint or "Not provided"}
 Sample rows: {json.dumps(sample_rows, default=str)}
 
-Respond ONLY with valid JSON:
+Respond ONLY with valid JSON in this format:
 {{
   "task_type": "<regression|classification|clustering|time_series>",
   "confidence": <0.0-1.0>,
   "reasoning": "<2-3 sentence explanation>"
 }}"""
 
-        loop = asyncio.get_event_loop()
-        response = await loop.run_in_executor(None, self.model.generate_content, prompt)
-        text = response.text.strip()
-
-        # Extract JSON
-        match = re.search(r'\{.*\}', text, re.DOTALL)
-        if match:
-            return json.loads(match.group())
+        try:
+            url = "https://api.groq.com/openai/v1/chat/completions"
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            }
+            payload = {
+                "model": "llama-3.3-70b-versatile",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.2,
+                "response_format": {"type": "json_object"}
+            }
+            async with httpx.AsyncClient(timeout=20.0) as client:
+                response = await client.post(url, headers=headers, json=payload)
+                response.raise_for_status()
+                result = response.json()
+                text = result["choices"][0]["message"]["content"].strip()
+                
+            # Extract JSON
+            match = re.search(r'\{.*\}', text, re.DOTALL)
+            if match:
+                return json.loads(match.group())
+        except Exception:
+            pass
         return None
 
     def _subtask_details(self, task_type: str, df: pd.DataFrame, schema: dict, target: str) -> dict:

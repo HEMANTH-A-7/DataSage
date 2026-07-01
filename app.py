@@ -190,7 +190,7 @@ async def detect_task(payload: DetectTaskRequest):
     df = pd.read_json(session["df_json"], orient="split")
     schema = session["schema"]
 
-    detector = TaskDetector(api_key=os.getenv("GEMINI_API_KEY", ""))
+    detector = TaskDetector(api_key=os.getenv("GROQ_API_KEY", ""))
     detection = await detector.detect(
         df, schema, payload.target_column, payload.user_hint, session["expertise"]
     )
@@ -263,7 +263,7 @@ async def run_workflow(payload: RunWorkflowRequest):
     viz_engine = VisualizationEngine()
     charts = viz_engine.generate(df, results, task_type, target_column)
 
-    explainer = ExplainerEngine(api_key=os.getenv("GEMINI_API_KEY", ""))
+    explainer = ExplainerEngine(api_key=os.getenv("GROQ_API_KEY", ""))
     explanation = await explainer.explain(results, task, session["expertise"])
 
     session["results"] = results
@@ -296,7 +296,7 @@ async def run_arena(payload: ArenaRequest):
     # Generate AI commentary on winner
     if arena_results.get("winner"):
         try:
-            explainer = ExplainerEngine(api_key=os.getenv("GEMINI_API_KEY", ""))
+            explainer = ExplainerEngine(api_key=os.getenv("GROQ_API_KEY", ""))
             winner_results = arena_results["full_results"].get(
                 arena_results["winner"]["model_key"], {}
             )
@@ -320,7 +320,7 @@ async def feature_suggestions(payload: FeatureSuggestRequest):
 async def ask_question(payload: AskRequest):
     """Answer follow-up questions about the analysis."""
     session = _get_session(payload.session_id)
-    explainer = ExplainerEngine(api_key=os.getenv("GEMINI_API_KEY", ""))
+    explainer = ExplainerEngine(api_key=os.getenv("GROQ_API_KEY", ""))
     answer = await explainer.answer_question(
         payload.question,
         session.get("results", {}),
@@ -334,13 +334,13 @@ async def ask_question(payload: AskRequest):
 @app.get("/api/health")
 async def health():
     """Health check with dependency status."""
-    gemini_ok = bool(os.getenv("GEMINI_API_KEY", ""))
+    groq_ok = bool(os.getenv("GROQ_API_KEY", ""))
     return {
         "status": "ok",
         "service": "DataSage AI",
         "version": "2.0.0",
         "active_sessions": len(sessions),
-        "gemini_configured": gemini_ok,
+        "groq_configured": groq_ok,
         "timestamp": datetime.utcnow().isoformat(),
     }
 

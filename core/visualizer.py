@@ -15,26 +15,26 @@ def _fig_to_json(fig) -> dict:
     return json.loads(fig.to_json())
 
 
-# ABB-aligned color palette (white background, red accents)
+# CodeNest dark mint green color palette
 ABB_COLORS = {
-    "primary": "#FF000F",
-    "secondary": "#1f1f1f",
-    "accent": "#0ca678",
-    "warn": "#e67700",
+    "primary": "#5ed29c",      # Mint green
+    "secondary": "#ffffff",    # White
+    "accent": "#00f0ff",       # Cyan
+    "warn": "#ff3b30",         # Red
     "blue": "#3b82f6",
     "purple": "#8b5cf6",
-    "bg": "#ffffff",
-    "surface": "#f0f0f0",
-    "text": "#1f1f1f",
-    "grid": "#e0e0e0",
-    "palette": ["#FF000F", "#3b82f6", "#0ca678", "#e67700", "#8b5cf6", "#ec4899"],
+    "bg": "#070b0a",           # Dark background
+    "surface": "#101514",      # Liquid glass panel bg
+    "text": "#ffffff",
+    "grid": "#222b28",         # Dark green grid line color
+    "palette": ["#5ed29c", "#00f0ff", "#ff3b30", "#3b82f6", "#8b5cf6", "#ffffff"],
 }
 
 LAYOUT_BASE = dict(
-    paper_bgcolor=ABB_COLORS["bg"],
-    plot_bgcolor=ABB_COLORS["surface"],
-    font=dict(color=ABB_COLORS["text"], family="Helvetica Neue, Arial, sans-serif", size=12),
-    legend=dict(bgcolor="rgba(255,255,255,0.9)", bordercolor=ABB_COLORS["grid"], borderwidth=1),
+    paper_bgcolor="rgba(0,0,0,0)", # transparent for liquid glass blending
+    plot_bgcolor="rgba(255,255,255,0.01)",
+    font=dict(color=ABB_COLORS["text"], family="Inter, sans-serif", size=12),
+    legend=dict(bgcolor="rgba(7,11,10,0.8)", bordercolor=ABB_COLORS["grid"], borderwidth=1),
     margin=dict(l=50, r=20, t=50, b=45),
 )
 
@@ -177,7 +177,7 @@ class VisualizationEngine:
         importances = [x["importance"] for x in fi[:15]]
 
         colors = [ABB_COLORS["primary"] if i == 0 else ABB_COLORS["blue"]
-                  if v > np.median(importances) else "#9e9e9e"
+                  if v > np.median(importances) else "#222b28"
                   for i, v in enumerate(importances[::-1])]
 
         fig = go.Figure(go.Bar(
@@ -273,7 +273,7 @@ class VisualizationEngine:
         values = [e["primary_value"] for e in board]
         metric = board[0]["primary_metric"] if board else ""
         colors = [ABB_COLORS["primary"] if i == 0 else ABB_COLORS["blue"]
-                  if i == 1 else "#9e9e9e" for i in range(len(names))]
+                  if i == 1 else "#222b28" for i in range(len(names))]
 
         fig = go.Figure(go.Bar(
             y=names[::-1], x=values[::-1], orientation="h",

@@ -3,21 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DataSage — Intelligent Data Science Engine | ABB</title>
+  <title>DataSage — Intelligent Data Science Engine</title>
   <meta name="description" content="DataSage AI: Automated ML workflow engine with model arena, drift detection, and AI-powered explanations — built for industrial-grade data science." />
   <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
+
+  <!-- HLS Background Video -->
+  <video id="space-video" muted loop playsinline></video>
+  <div class="bg-gradient-overlay-left"></div>
+  <div class="bg-gradient-overlay-bottom"></div>
+
+  <!-- Vertical Desktop Grid Lines -->
+  <div class="grid-lines">
+    <div class="grid-line grid-line-1"></div>
+    <div class="grid-line grid-line-2"></div>
+    <div class="grid-line grid-line-3"></div>
+  </div>
+
+  <!-- SVG Glow Ellipse -->
+  <div class="glow-ellipse-container">
+    <svg style="width: 100%; height: 100%;" viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#glow-blur)">
+        <ellipse cx="450" cy="0" rx="350" ry="150" fill="url(#glow-gradient)" />
+      </g>
+      <defs>
+        <filter id="glow-blur" x="-200" y="-200" width="1300" height="800" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur" />
+        </filter>
+        <radialGradient id="glow-gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 0) rotate(90) scale(150 350)">
+          <stop stop-color="#5ed29c" stop-opacity="0.4" />
+          <stop offset="0.6" stop-color="#00f0ff" stop-opacity="0.15" />
+          <stop offset="1" stop-color="#070b0a" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-brand">
       <div class="brand-icon">
-        <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-          <rect width="36" height="36" fill="#FF000F"/>
-          <rect x="4" y="4" width="28" height="28" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
-          <text x="18" y="24" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="15" fill="#ffffff" letter-spacing="1">DS</text>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="4" fill="white"/>
+          <rect x="4" y="4" width="16" height="16" rx="2" fill="#070b0a"/>
+          <polygon points="12,7 8,12 16,12" fill="#5ed29c"/>
         </svg>
       </div>
       <span class="brand-name">DataSage</span>
@@ -40,16 +73,13 @@
 
   <!-- HERO -->
   <section class="hero" id="hero-section">
-    <div class="hero-bg">
-      <img src="/static/images/hero-bg.png" alt="Industrial data center" />
-    </div>
+    <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-accent"></div>
-      <p class="hero-label">Intelligent Data Science · ABB Innovation</p>
+      <p class="hero-label">Intelligent Data Science Engine</p>
       <h1 class="hero-title">
         Automated ML<br/>
-        <span class="hero-title-muted">Workflow Engine</span>
+        <span class="hero-title-muted">Workflow Engine</span><span style="color: var(--brand-green);">.</span>
       </h1>
       <p class="hero-subtitle">
         Upload any dataset. DataSage detects the task, benchmarks all models
@@ -107,9 +137,9 @@
 
   <!-- UPLOAD SECTION -->
   <section class="upload-section" id="upload-section">
-    <div class="upload-image">
-      <img src="/static/images/data-viz.png" alt="Data visualization" />
-      <div class="upload-image-overlay">
+    <div class="upload-image" style="position: relative;">
+      <div id="generative-sphere-container" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden;"></div>
+      <div class="upload-image-overlay" style="z-index: 2;">
         <div class="upload-image-badges">
           <div class="img-badge">CSV</div>
           <div class="img-badge">Excel</div>

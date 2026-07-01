@@ -60,12 +60,12 @@ An end-to-end automated machine learning platform that ingests any dataset, dete
 DataSage AI eliminates the repetitive overhead of exploratory data analysis, model selection, and pipeline configuration. Users upload a dataset (CSV, Excel, or JSON), and the platform automatically:
 
 1. **Ingests & profiles** the data — schema inference, missing value analysis, distribution statistics.
-2. **Detects the ML task** — Hybrid heuristic + Gemini LLM approach to classify the problem as regression, classification, clustering, or time-series.
+2. **Detects the ML task** — Hybrid heuristic + Groq LLM approach to classify the problem as regression, classification, clustering, or time-series.
 3. **Recommends models** — Ranks applicable algorithms by suitability based on dataset characteristics.
 4. **Trains & evaluates** — Executes the full ML pipeline with cross-validation, feature importance, and metric computation.
 5. **Runs the Model Arena** — Benchmarks *all* applicable models head-to-head and produces a ranked leaderboard with radar-chart comparisons.
 6. **Detects data drift** — Statistical monitoring using KS-test, PSI, and Jensen-Shannon divergence to flag distribution shifts.
-7. **Explains results with AI** — Gemini-powered natural language explanations tailored to the user's expertise level.
+7. **Explains results with AI** — Groq-powered natural language explanations tailored to the user's expertise level.
 
 ---
 
@@ -75,12 +75,12 @@ DataSage AI eliminates the repetitive overhead of exploratory data analysis, mod
 |---|---|
 | **Multi-Format Ingestion** | CSV, Excel (.xlsx/.xls), and JSON files up to 50 MB |
 | **Automated EDA** | Schema detection, missing values, distribution profiling, correlation analysis |
-| **Hybrid Task Detection** | Heuristic rules + Gemini LLM for high-confidence task classification |
+| **Hybrid Task Detection** | Heuristic rules + Groq LLM for high-confidence task classification |
 | **18+ ML Models** | Covers regression, classification, clustering, and time-series forecasting |
 | **Model Arena** | Automated head-to-head benchmarking with ranked leaderboard and radar charts |
 | **Data Drift Detection** | KS-test, PSI, and JS-divergence across all features with severity grading |
 | **Feature Engineering** | Automated suggestions for transformations, interactions, and encodings |
-| **AI Explanations** | Context-aware, expertise-adapted explanations powered by Gemini |
+| **AI Explanations** | Context-aware, expertise-adapted explanations powered by Groq |
 | **Interactive Q&A** | Ask follow-up questions about your results in natural language |
 | **Demo Datasets** | One-click ABB Motor Data, House Prices, Customer Churn, Segments, and Sales Forecast |
 
@@ -101,7 +101,7 @@ datasage/
 │   ├── arena.py              # Multi-model competition engine
 │   ├── drift_detector.py     # Statistical drift monitoring (KS, PSI, JS)
 │   ├── feature_engineer.py   # Automated feature suggestions
-│   ├── explainer.py          # Gemini-powered AI explanations
+│   ├── explainer.py          # Groq-powered AI explanations
 │   └── visualizer.py         # Plotly chart generation
 ├── static/
 │   ├── index.html            # Single-page application
@@ -123,7 +123,7 @@ datasage/
 |---|---|
 | **Backend** | Python 3.11, FastAPI, Uvicorn |
 | **ML / Data** | scikit-learn, XGBoost, statsmodels, pandas, NumPy, SciPy |
-| **AI / LLM** | Google Gemini 1.5 Flash |
+| **AI / LLM** | Groq Llama 3.3 |
 | **Visualization** | Plotly.js |
 | **Frontend** | Vanilla HTML/CSS/JS with ABB-inspired design system |
 | **Deployment** | Docker, Hugging Face Spaces |
@@ -135,7 +135,7 @@ datasage/
 ### Prerequisites
 
 - Python 3.11+
-- (Optional) [Gemini API Key](https://aistudio.google.com/apikey) for AI explanations
+- (Optional) [Groq API Key](https://console.groq.com/keys) for AI explanations
 
 ### Local Setup
 
@@ -156,8 +156,8 @@ pip install -r requirements.txt
 python generate_demo_data.py
 
 # Set environment variable (optional — enables AI explanations)
-export GEMINI_API_KEY="your_key_here"       # Linux/Mac
-set GEMINI_API_KEY=your_key_here            # Windows
+export GROQ_API_KEY="your_key_here"       # Linux/Mac
+set GROQ_API_KEY=your_key_here            # Windows
 
 # Run the application
 python app.py

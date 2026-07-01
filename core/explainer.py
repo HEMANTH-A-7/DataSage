@@ -7,11 +7,7 @@ import json
 import re
 from typing import Optional
 
-try:
-    import google.generativeai as genai
-    GEMINI_AVAILABLE = True
-except ImportError:
-    GEMINI_AVAILABLE = False
+import httpx
 
 EXPERTISE_PROMPTS = {
     "beginner": "Explain as if to someone with no programming or statistics background. Use simple analogies and avoid jargon. Keep it friendly and encouraging.",
@@ -23,14 +19,10 @@ EXPERTISE_PROMPTS = {
 class ExplainerEngine:
     def __init__(self, api_key: str = ""):
         self.api_key = api_key
-        self.model = None
-        if GEMINI_AVAILABLE and api_key:
-            genai.configure(api_key=api_key)
-            self.model = genai.GenerativeModel("gemini-1.5-flash")
 
     async def explain(self, results: dict, task: dict, expertise: str) -> dict:
         """Generate a comprehensive explanation of workflow results."""
-        if not self.model:
+        if not self.api_key:
             return self._fallback_explanation(results, task, expertise)
 
         expertise_style = EXPERTISE_PROMPTS.get(expertise, EXPERTISE_PROMPTS["intermediate"])
@@ -66,9 +58,27 @@ Respond ONLY with valid JSON:
 }}"""
 
         try:
-            loop = asyncio.get_event_loop()
-            response = await loop.run_in_executor(None, self.model.generate_content, prompt)
-            text = response.text.strip()
+            url = "https://api.groq.com/openai/v1/chat/completions"
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            }
+            system_prompt = "You are DataSage AI, an expert data science assistant. Respond ONLY with valid JSON."
+            payload = {
+                "model": "llama-3.3-70b-versatile",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.2,
+                "response_format": {"type": "json_object"}
+            }
+            async with httpx.AsyncClient(timeout=25.0) as client:
+                response = await client.post(url, headers=headers, json=payload)
+                response.raise_for_status()
+                result = response.json()
+                text = result["choices"][0]["message"]["content"].strip()
+
             match = re.search(r'\{.*\}', text, re.DOTALL)
             if match:
                 return json.loads(match.group())
@@ -81,8 +91,8 @@ Respond ONLY with valid JSON:
         self, question: str, results: dict, task: dict, eda: dict, expertise: str
     ) -> str:
         """Answer a follow-up question about the analysis."""
-        if not self.model:
-            return "LLM service unavailable. Please configure GEMINI_API_KEY."
+        if not self.api_key:
+            return "LLM service unavailable. Please configure GROQ_API_KEY."
 
         expertise_style = EXPERTISE_PROMPTS.get(expertise, EXPERTISE_PROMPTS["intermediate"])
         context = {
@@ -104,9 +114,25 @@ Audience style: {expertise_style}
 Answer clearly, helpfully, and concisely (2-5 sentences max). Cite specific numbers from the context where relevant."""
 
         try:
-            loop = asyncio.get_event_loop()
-            response = await loop.run_in_executor(None, self.model.generate_content, prompt)
-            return response.text.strip()
+            url = "https://api.groq.com/openai/v1/chat/completions"
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            }
+            system_prompt = "You are DataSage AI. Answer follow-up questions clearly and concisely."
+            payload = {
+                "model": "llama-3.3-70b-versatile",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.2
+            }
+            async with httpx.AsyncClient(timeout=25.0) as client:
+                response = await client.post(url, headers=headers, json=payload)
+                response.raise_for_status()
+                result = response.json()
+                return result["choices"][0]["message"]["content"].strip()
         except Exception as e:
             return f"Could not generate answer: {str(e)}"
 
