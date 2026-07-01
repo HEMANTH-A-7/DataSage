@@ -561,6 +561,21 @@ body {
   margin-bottom: 4px;
 }
 
+.icon-thunder {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+
+.btn-arena .icon-thunder,
+.panel-title .icon-thunder {
+  color: var(--brand-green);
+  margin-right: 6px;
+}
+
 .cap-card-title {
   font-size: 14px;
   font-weight: 700;

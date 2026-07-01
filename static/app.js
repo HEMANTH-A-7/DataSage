@@ -349,7 +349,7 @@ async function runArena() {
   if (!state.sessionId) return;
   const btn = document.getElementById('arena-btn');
   if (btn) btn.disabled = true;
-  showLoading('⚡ Running Model Arena…', 'Benchmarking all models — this may take 30-60s');
+  showLoading('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-thunder"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Running Model Arena…', 'Benchmarking all models — this may take 30-60s');
   try {
     const res = await fetch(`${API}/api/arena`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -486,7 +486,7 @@ function markStepDone(n) {
 function show(id) { const el = document.getElementById(id); if (el) el.classList.remove('hidden'); }
 function hide(id) { const el = document.getElementById(id); if (el) el.classList.add('hidden'); }
 function showLoading(msg, sub) {
-  document.getElementById('loading-text').textContent = msg || 'Processing…';
+  document.getElementById('loading-text').innerHTML = msg || 'Processing…';
   const subEl = document.getElementById('loading-sub');
   if (subEl) subEl.textContent = sub || '';
   show('loading-overlay');
