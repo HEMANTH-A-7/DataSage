@@ -15,7 +15,7 @@ app_port: 8000
 
 An end-to-end automated machine learning platform that ingests any dataset, detects the optimal task type, benchmarks multiple models in a competitive arena, monitors data drift, and delivers AI-powered explanations — all through a single, professional interface.
 
-[![Live Demo](https://img.shields.io/badge/🤗_Live_Demo-Hugging_Face-yellow?style=for-the-badge)](https://hemanth021-datasage.hf.space)
+[![Live Demo](https://img.shields.io/badge/⚡_Live_Demo-Railway-101514?style=for-the-badge&logo=railway&logoColor=5ed29c)](https://datasage-production-f1ea.up.railway.app)
 [![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
@@ -126,7 +126,7 @@ datasage/
 | **AI / LLM** | Groq Llama 3.3 |
 | **Visualization** | Plotly.js |
 | **Frontend** | Vanilla HTML/CSS/JS with ABB-inspired design system |
-| **Deployment** | Docker, Hugging Face Spaces |
+| **Deployment** | Docker, Railway |
 
 ---
 
