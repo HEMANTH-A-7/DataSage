@@ -252,10 +252,10 @@ async function runWorkflow(modelKey) {
     if (!res.ok) throw new Error(await res.text());
     const data = await res.json();
     hideLoading();
+    show('results-panel');
     renderResults(data, modelKey);
     activateStep(4);
     markStepDone(4);
-    show('results-panel');
     scrollTo('results-panel');
     showToast('Analysis complete ✓', 'success');
   } catch (err) {
@@ -358,9 +358,9 @@ async function runArena() {
     if (!res.ok) throw new Error(await res.text());
     const data = await res.json();
     hideLoading();
+    show('arena-panel');
     renderArena(data);
     activateStep(5);
-    show('arena-panel');
     scrollTo('arena-panel');
     showToast(`Arena complete! ${data.successful} models benchmarked ✓`, 'success');
   } catch (err) {
@@ -409,7 +409,13 @@ function renderArena(data) {
       type: 'bar', orientation: 'h',
       y: names, x: vals, marker: { color: colors },
       text: vals.map(v => v.toFixed(4)), textposition: 'outside',
-    }], { title: `Model Leaderboard — ${metric.toUpperCase()}`, paper_bgcolor: '#fff', plot_bgcolor: '#f0f0f0', font: { color: '#1f1f1f' }, margin: { l: 180, r: 60, t: 50, b: 40 } });
+    }], {
+      title: `Model Leaderboard — ${metric.toUpperCase()}`,
+      paper_bgcolor: 'rgba(0,0,0,0)',
+      plot_bgcolor: 'rgba(0,0,0,0)',
+      font: { color: '#ffffff', family: 'Outfit, sans-serif' },
+      margin: { l: 180, r: 60, t: 50, b: 40 }
+    });
   }
 
   // Radar chart
@@ -422,9 +428,14 @@ function renderArena(data) {
     }));
     renderPlotlyInGrid(arenaChartsGrid, 'arena-radar', traces, {
       title: 'Model Comparison Radar',
-      paper_bgcolor: '#fff', font: { color: '#1f1f1f' },
-      polar: { radialaxis: { visible: true, range: [0, 100] } },
-      margin: { l: 30, r: 30, t: 50, b: 30 },
+      paper_bgcolor: 'rgba(0,0,0,0)',
+      font: { color: '#ffffff', family: 'Outfit, sans-serif' },
+      polar: {
+        bgcolor: 'rgba(255,255,255,0.02)',
+        angularaxis: { gridcolor: 'rgba(255,255,255,0.1)', linecolor: 'rgba(255,255,255,0.1)' },
+        radialaxis: { visible: true, range: [0, 100], gridcolor: 'rgba(255,255,255,0.1)' }
+      },
+      margin: { l: 40, r: 40, t: 50, b: 40 },
     });
   }
 
