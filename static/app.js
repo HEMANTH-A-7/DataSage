@@ -403,7 +403,7 @@ function renderArena(data) {
   if (leaderboard.length > 0) {
     const names = leaderboard.map(e => e.model_name).reverse();
     const vals = leaderboard.map(e => e.primary_value).reverse();
-    const colors = leaderboard.map((e, i) => i === leaderboard.length - 1 ? 'var(--brand-green)' : i === leaderboard.length - 2 ? '#3b82f6' : 'var(--border)').reverse();
+    const colors = leaderboard.map((e, i) => i === leaderboard.length - 1 ? '#5ed29c' : i === leaderboard.length - 2 ? '#3b82f6' : '#22302d').reverse();
     const metric = leaderboard[0].primary_metric;
     renderPlotlyInGrid(arenaChartsGrid, 'arena-lb', [{
       type: 'bar', orientation: 'h',
@@ -414,6 +414,15 @@ function renderArena(data) {
       paper_bgcolor: 'rgba(0,0,0,0)',
       plot_bgcolor: 'rgba(0,0,0,0)',
       font: { color: '#ffffff', family: 'Outfit, sans-serif' },
+      xaxis: {
+        gridcolor: 'rgba(255,255,255,0.08)',
+        zerolinecolor: 'rgba(255,255,255,0.15)',
+        tickfont: { color: '#a3a3a3', family: 'Outfit, sans-serif' }
+      },
+      yaxis: {
+        gridcolor: 'rgba(255,255,255,0.04)',
+        tickfont: { color: '#a3a3a3', family: 'Outfit, sans-serif' }
+      },
       margin: { l: 180, r: 60, t: 50, b: 40 }
     });
   }
@@ -432,10 +441,19 @@ function renderArena(data) {
       font: { color: '#ffffff', family: 'Outfit, sans-serif' },
       polar: {
         bgcolor: 'rgba(255,255,255,0.02)',
-        angularaxis: { gridcolor: 'rgba(255,255,255,0.1)', linecolor: 'rgba(255,255,255,0.1)' },
-        radialaxis: { visible: true, range: [0, 100], gridcolor: 'rgba(255,255,255,0.1)' }
+        angularaxis: {
+          gridcolor: 'rgba(255,255,255,0.08)',
+          linecolor: 'rgba(255,255,255,0.1)',
+          tickfont: { color: '#a3a3a3', family: 'Outfit, sans-serif' }
+        },
+        radialaxis: {
+          visible: true,
+          range: [0, 100],
+          gridcolor: 'rgba(255,255,255,0.08)',
+          tickfont: { color: '#a3a3a3', family: 'Outfit, sans-serif' }
+        }
       },
-      margin: { l: 40, r: 40, t: 50, b: 40 },
+      margin: { l: 45, r: 45, t: 50, b: 45 },
     });
   }
 
