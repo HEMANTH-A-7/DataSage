@@ -271,7 +271,7 @@ function renderResults(data, modelKey) {
   // Metrics
   const mRow = document.getElementById('metrics-row');
   mRow.innerHTML = Object.entries(results.metrics)
-    .filter(([k]) => !['class_names','cv_accuracy_std','cv_r2_std'].includes(k))
+    .filter(([k]) => !['class_names','cv_accuracy_std','cv_r2_std','cluster_sizes'].includes(k))
     .map(([k, v]) => `<div class="metric-card"><div class="metric-value">${typeof v === 'number' ? fmtMetric(k, v) : v}</div><div class="metric-label">${k.replace(/_/g,' ').toUpperCase()}</div></div>`)
     .join('');
 
@@ -302,9 +302,11 @@ function renderDriftAlert(drift) {
 }
 
 function fmtMetric(key, val) {
+  if (val === null || val === undefined || isNaN(val)) return 'N/A';
   if (key === 'n_clusters_found') return val;
-  if (['rmse', 'mae', 'aic'].includes(key)) return val.toFixed(3);
-  if (key === 'silhouette_score') return val !== null ? val.toFixed(3) : 'N/A';
+  if (['rmse', 'mae', 'aic', 'davies_bouldin'].includes(key)) return val.toFixed(3);
+  if (key === 'calinski_harabasz') return val.toFixed(1);
+  if (key === 'silhouette_score') return val.toFixed(3);
   return (val * 100).toFixed(1) + '%';
 }
 
