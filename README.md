@@ -1,12 +1,3 @@
----
-title: DataSage AI
-emoji: ⚡
-colorFrom: red
-colorTo: gray
-sdk: docker
-app_port: 8000
----
-
 <div align="center">
 
 # ⚡ DataSage AI
@@ -105,7 +96,7 @@ datasage/
 │   └── visualizer.py         # Plotly chart generation
 ├── static/
 │   ├── index.html            # Single-page application
-│   ├── style.css             # ABB-inspired design system
+│   ├── style.css             # CodeNest dark design system
 │   └── app.js                # Frontend logic & API integration
 ├── tests/
 │   └── test_core.py          # Unit tests for core modules
