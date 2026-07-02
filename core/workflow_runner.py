@@ -11,7 +11,8 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import (
     mean_squared_error, mean_absolute_error, r2_score,
     accuracy_score, f1_score, precision_score, recall_score,
-    classification_report, silhouette_score,
+    classification_report, silhouette_score, calinski_harabasz_score,
+    davies_bouldin_score,
 )
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
@@ -179,6 +180,16 @@ class WorkflowRunner:
                 metrics["silhouette_score"] = round(float(sil), 4)
             except Exception:
                 metrics["silhouette_score"] = None
+            try:
+                ch = calinski_harabasz_score(X_s, labels)
+                metrics["calinski_harabasz"] = round(float(ch), 4)
+            except Exception:
+                metrics["calinski_harabasz"] = None
+            try:
+                db = davies_bouldin_score(X_s, labels)
+                metrics["davies_bouldin"] = round(float(db), 4)
+            except Exception:
+                metrics["davies_bouldin"] = None
 
         # Cluster sizes
         unique, counts = np.unique(labels, return_counts=True)

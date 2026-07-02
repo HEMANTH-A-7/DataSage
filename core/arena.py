@@ -74,24 +74,51 @@ class ModelArena:
         if not results:
             return {}
         if task_type == "regression":
-            axes = ["r2", "cv_r2_mean"]
-            labels = ["R²", "CV R²"]
+            axes = ["r2", "cv_r2_mean", "consistency"]
+            labels = ["R²", "CV R²", "Consistency"]
         elif task_type == "classification":
             axes = ["accuracy", "f1", "precision", "recall"]
             labels = ["Accuracy", "F1", "Precision", "Recall"]
         elif task_type == "clustering":
-            return {}
+            axes = ["silhouette_score", "calinski_harabasz_scaled", "davies_bouldin_scaled"]
+            labels = ["Silhouette Score", "Calinski-Harabasz", "Davies-Bouldin"]
         else:
             return {}
+
+        # Precompute max Calinski-Harabasz for normalization in clustering
+        max_ch = 1.0
+        if task_type == "clustering":
+            ch_vals = []
+            for r in results:
+                v = r.get("metrics", {}).get("calinski_harabasz")
+                if v is not None:
+                    ch_vals.append(float(v))
+            if ch_vals:
+                max_ch = max(ch_vals) or 1.0
+
         models = []
         for r in results[:5]:
             m = r.get("metrics", {})
             vals = []
             for ax in axes:
-                v = m.get(ax, 0)
-                if v is None:
-                    v = 0
-                vals.append(round(float(v) * 100 if float(v) <= 1 else float(v), 1))
+                if ax == "consistency":
+                    v = 1.0 - float(m.get("cv_r2_std", 0) or 0)
+                    v = max(0.0, min(1.0, v)) * 100.0
+                elif ax == "calinski_harabasz_scaled":
+                    ch = float(m.get("calinski_harabasz", 0) or 0)
+                    v = (ch / max_ch) * 100.0
+                elif ax == "davies_bouldin_scaled":
+                    db = float(m.get("davies_bouldin", 0) or 0)
+                    v = (1.0 / (1.0 + db)) * 100.0
+                elif ax == "silhouette_score":
+                    sil = float(m.get("silhouette_score", 0) or 0)
+                    v = ((sil + 1.0) / 2.0) * 100.0
+                else:
+                    v = m.get(ax, 0)
+                    if v is None:
+                        v = 0
+                    v = float(v) * 100.0 if v <= 1.0 else float(v)
+                vals.append(round(v, 1))
             models.append({"model_name": r["model_name"], "model_key": r["model_key"], "values": vals})
         return {"axis_labels": labels, "models": models}
 
