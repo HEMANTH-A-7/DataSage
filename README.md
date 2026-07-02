@@ -6,10 +6,26 @@
 
 DataSage AI is an end-to-end automated machine learning platform that eliminates the manual overhead of data science workflows. Upload any dataset, and the platform automatically profiles it, detects the right ML task, benchmarks every applicable model head-to-head, monitors data drift, and delivers plain-language AI explanations — all without writing a single line of code.
 
+<!-- Deployment -->
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Railway-101514?style=for-the-badge&logo=railway&logoColor=5ed29c)](https://datasage-production-f1ea.up.railway.app)
-[![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+
+<!-- Backend -->
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI-499848?style=for-the-badge&logo=gunicorn&logoColor=white)](https://www.uvicorn.org)
+
+<!-- ML & Data -->
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)](https://scikit-learn.org)
+[![XGBoost](https://img.shields.io/badge/XGBoost-Boosting-EA4335?style=for-the-badge&logo=xgboost&logoColor=white)](https://xgboost.readthedocs.io)
+[![pandas](https://img.shields.io/badge/pandas-DataFrames-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org)
+[![NumPy](https://img.shields.io/badge/NumPy-Arrays-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org)
+[![SciPy](https://img.shields.io/badge/SciPy-Statistics-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)](https://scipy.org)
+[![statsmodels](https://img.shields.io/badge/statsmodels-TimeSeries-4B8BBE?style=for-the-badge&logo=python&logoColor=white)](https://www.statsmodels.org)
+
+<!-- AI & Visualization -->
+[![Groq](https://img.shields.io/badge/Groq-Llama_3.3_70B-FF6B35?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com)
+[![Plotly](https://img.shields.io/badge/Plotly.js-Charts-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/javascript)
 
 </div>
 
