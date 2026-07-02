@@ -23,26 +23,17 @@ An end-to-end automated machine learning platform that ingests any dataset, dete
 
 ## 📸 Screenshots
 
-### Landing Page
-![Landing Page](screenshots/01_landing_page.png)
+All workflow screenshots are stored in the [`screenshots/`](https://github.com/HEMANTH-A-7/DataSage/tree/main/screenshots) folder.
 
-### Dataset Upload
-![Dataset Upload](screenshots/02_upload_section.png)
-
-### Automated Data Profiling & Feature Engineering Suggestions
-![Data Profiling](screenshots/03_data_profiling.png)
-
-### Task Detection (Hybrid Heuristic + LLM)
-![Task Detection](screenshots/04_task_detection.png)
-
-### Model Recommendations
-![Model Recommendations](screenshots/05_model_recommendations.png)
-
-### Model Arena — Head-to-Head Benchmarking
-![Model Arena](screenshots/06_model_arena.png)
-
-### Results & AI-Powered Explanations
-![Results and Explanations](screenshots/07_results_explanation.png)
+| Step | Preview |
+|---|---|
+| 🏠 Landing Page | [View](https://github.com/HEMANTH-A-7/DataSage/blob/main/screenshots/01_landing_page.png) |
+| 📂 Dataset Upload | [View](https://github.com/HEMANTH-A-7/DataSage/blob/main/screenshots/02_upload_section.png) |
+| 📊 Data Profiling & EDA | [View](https://github.com/HEMANTH-A-7/DataSage/blob/main/screenshots/03_data_profiling.png) |
+| 🎯 Task Detection | [View](https://github.com/HEMANTH-A-7/DataSage/blob/main/screenshots/04_task_detection.png) |
+| 🤖 Model Recommendations | [View](https://github.com/HEMANTH-A-7/DataSage/blob/main/screenshots/05_model_recommendations.png) |
+| 🏆 Model Arena — Leaderboard & Radar | [View](https://github.com/HEMANTH-A-7/DataSage/blob/main/screenshots/06_model_arena.png) |
+| 💡 Results & AI Explanations | [View](https://github.com/HEMANTH-A-7/DataSage/blob/main/screenshots/07_results_explanation.png) |
 
 ---
 
