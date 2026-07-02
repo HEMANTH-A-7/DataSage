@@ -638,11 +638,20 @@ function showToast(msg, type = 'success') {
   pointLight.position.set(0, 0, 5);
   scene.add(pointLight);
 
+  const currentLightPos = new THREE.Vector3(0, 0, 5);
+  const targetLightPos = new THREE.Vector3(0, 0, 5);
+
   let frameId;
   function animate(t) {
     material.uniforms.time.value = t * 0.0003;
     mesh.rotation.y += 0.0005;
     mesh.rotation.x += 0.0002;
+
+    // Smoothly interpolate the light source position
+    currentLightPos.lerp(targetLightPos, 0.08);
+    pointLight.position.copy(currentLightPos);
+    material.uniforms.pointLightPos.value.copy(currentLightPos);
+
     renderer.render(scene, camera);
     frameId = requestAnimationFrame(animate);
   }
@@ -663,8 +672,7 @@ function showToast(msg, type = 'success') {
     const dir = vec.sub(camera.position).normalize();
     const dist = -camera.position.z / dir.z;
     const pos = camera.position.clone().add(dir.multiplyScalar(dist));
-    pointLight.position.copy(pos);
-    material.uniforms.pointLightPos.value = pos;
+    targetLightPos.copy(pos);
   }
 
   function handleTouchMove(e) {
@@ -676,13 +684,18 @@ function showToast(msg, type = 'success') {
       const dir = vec.sub(camera.position).normalize();
       const dist = -camera.position.z / dir.z;
       const pos = camera.position.clone().add(dir.multiplyScalar(dist));
-      pointLight.position.copy(pos);
-      material.uniforms.pointLightPos.value = pos;
+      targetLightPos.copy(pos);
     }
   }
 
+  function handleMouseLeave() {
+    targetLightPos.set(0, 0, 5);
+  }
+
   window.addEventListener('resize', handleResize);
-  window.addEventListener('mousemove', handleMouseMove);
-  window.addEventListener('touchmove', handleTouchMove, { passive: true });
+  container.addEventListener('mousemove', handleMouseMove);
+  container.addEventListener('mouseleave', handleMouseLeave);
+  container.addEventListener('touchmove', handleTouchMove, { passive: true });
+  container.addEventListener('touchend', handleMouseLeave);
   setTimeout(handleResize, 150);
 })();
