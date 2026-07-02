@@ -26,7 +26,7 @@ An end-to-end automated machine learning platform that ingests any dataset, dete
 
 ##  Live Deployment
 
-> **Try it now:** [https://hemanth021-datasage.hf.space](https://hemanth021-datasage.hf.space)
+> **Try it now:** https://datasage-production-f1ea.up.railway.app
 
 ---
 
