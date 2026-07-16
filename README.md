@@ -1,4 +1,4 @@
-<div align="center">
+[<div align="center">
 
 # DataSage AI
 
@@ -7,7 +7,7 @@
 DataSage AI is an end-to-end automated machine learning platform that eliminates the manual overhead of data science workflows. Upload any dataset, and the platform automatically profiles it, detects the right ML task, benchmarks every applicable model head-to-head, monitors data drift, and delivers plain-language AI explanations — all without writing a single line of code.
 
 <!-- Deployment -->
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Railway-101514?style=for-the-badge&logo=railway&logoColor=5ed29c)]((https://datasage-c97d.onrender.com/))
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Render-101514?style=for-the-badge&logo=render&logoColor=5ed29c)]((https://datasage-c97d.onrender.com/))
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
 
 <!-- Backend -->
@@ -187,7 +187,7 @@ datasage/
 | AI / LLM | Groq Llama 3.3 70B |
 | Visualization | Plotly.js |
 | Frontend | Vanilla HTML, CSS, JavaScript — CodeNest dark design system |
-| Deployment | Docker, Railway |
+| Deployment | Docker, Render |
 
 ---
 
@@ -305,3 +305,4 @@ This project is intended for educational and demonstration purposes.
 **Built for intelligent, automated data science.**
 
 </div>
+](https://datasage-c97d.onrender.com/)
