@@ -33,7 +33,7 @@ DataSage AI is an end-to-end automated machine learning platform that eliminates
 
 ## Live Deployment
 
-> **Try it now:** https://datasage-production-f1ea.up.railway.app
+> **Try it now:** https://datasage-c97d.onrender.com/
 
 ---
 
